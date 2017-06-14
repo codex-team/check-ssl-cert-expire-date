@@ -6,6 +6,5 @@ DOMAINS = [
 # Notifications link from https://t.me/codex_bot
 CODEXBOT_NOTIFICATIONS = ''
 
-
 # Notify when cert expires in this period of time
 DAYS_LIMIT = 31

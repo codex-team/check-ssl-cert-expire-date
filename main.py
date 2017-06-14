@@ -3,7 +3,7 @@ import ssl
 import datetime
 import requests
 
-from config import *
+from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT
 
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
@@ -33,11 +33,20 @@ def ssl_expiry_datetime(hostname):
 def check_ssl_time_left(domain):
     cert_expire_at = ssl_expiry_datetime(domain)
     time_left = cert_expire_at - datetime.datetime.now()
+    message = 'SSL cert for {} has {}'.format(domain, days_left_to_format_string(time_left))
     if time_left.days <= DAYS_LIMIT:
-        send_message('‼️ SSL cert for {} has {}'.format(domain, days_left_to_format_string(time_left)))
+        message = '‼️ {}'.format(message)
+        send_message(message)
+    print(message)
 
 def days_left_to_format_string(timedelta):
     return '{} day{} left'.format(timedelta.days,  ('s', '')[timedelta.days == 1])
+
+###
+
+if not CODEXBOT_NOTIFICATIONS:
+    print('No CODEXBOT_NOTIFICATIONS link was found in config file.')
+    exit()
 
 for domain in DOMAINS:
     check_ssl_time_left(domain)
