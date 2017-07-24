@@ -2,7 +2,6 @@ import socket
 import ssl
 import datetime
 import requests
-
 from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT
 
 
