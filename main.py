@@ -5,14 +5,20 @@ import ssl
 import datetime
 import requests
 import sys
-from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT
+from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT, APITOKEN, CHATID
 
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
 
 # tg
 def send_message(text):
-    requests.post(CODEXBOT_NOTIFICATIONS, data={'message': text})
+    url = 'https://api.telegram.org/bot{}/sendMessage'.format(APITOKEN)
+    data = {
+        'text': text,
+        'chat_id': CHATID
+    }
+    requests.post(url, json=data)
+
 
 '''
 Source link: https://serverlesscode.com/post/ssl-expiration-alerts-with-lambda/
@@ -45,8 +51,8 @@ def check_ssl_time_left(domain):
 def days_left_to_format_string(timedelta):
     return '{} day{} left'.format(timedelta.days,  ('s', '')[timedelta.days == 1])
 
-if not CODEXBOT_NOTIFICATIONS:
-    print('No CODEXBOT_NOTIFICATIONS link was found in config file.')
+if not APITOKEN:
+    print('No APITOKEN was found in config file.')
     exit()
 
 for domain in DOMAINS:
