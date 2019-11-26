@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import subprocess
 import socket
 import ssl
 import datetime
 import requests
 import sys
-import dateutil.parser
+from pywhois import whois
 from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT
-
-EXPIRE_STRINGS = [ "Registry Expiry Date:",
-                   "Expiration:",
-                   "Domain Expiration Date",
-                   "Registrar Registration Expiration Date:",
-                   "expire:",
-                   "Expiry date",
-                   "paid-till"
-                 ]
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
 
@@ -62,16 +52,7 @@ if not CODEXBOT_NOTIFICATIONS:
 for domain in DOMAINS:
     try:
         check_ssl_time_left(domain)
-            
-        p = subprocess.Popen(['whois', domain], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        whois_data = p.communicate()[0]
-        expiration_date = "00/00/00 00:00:00"
-
-        for line in whois_data.splitlines():
-            line = line.decode("utf-8")
-            if any(expire_string in line for expire_string in EXPIRE_STRINGS):
-                expiration_date = dateutil.parser.parse(line.partition(": ")[2], ignoretz=True)
-
-        print("Expiration date: %-30s" % (expiration_date))
+        w = whois.whois(domain)           
+        print("Expiration date for", domain,": ",  w.expiration_date)
     except:
         print("Unexpected error:", sys.exc_info()[0])
