@@ -1,10 +1,6 @@
 # Domains list
 DOMAINS = [
-<<<<<<< HEAD
-   # 'ifmo.su'
-=======
     # 'codex.so'
->>>>>>> 47b491ed25e97a1570bed72554e5a34a6a076727
 ]
 
 # Telegram bot API Token

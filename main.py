@@ -4,13 +4,9 @@ import socket
 import ssl
 import datetime
 import requests
-<<<<<<< HEAD
 import sys
 from pywhois import whois
-from config import DOMAINS, CODEXBOT_NOTIFICATIONS, DAYS_LIMIT
-=======
 from config import DOMAINS, DAYS_LIMIT, APITOKEN, CHATID
->>>>>>> 47b491ed25e97a1570bed72554e5a34a6a076727
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
 MESSAGE_CERTIFICATE_EXPIRED = "⚠️ SSL expired on {}"
@@ -97,15 +93,10 @@ if not APITOKEN:
 for domain in DOMAINS:
     try:
         check_ssl_time_left(domain)
-<<<<<<< HEAD
         w = whois.whois(domain)           
         expdays = 'Expiration date for {} has {}'.format(domain, days_left_to_format_string(w.expiration_date-datetime.datetime.now()))
         print(expdays)
         if (w.expiration_date-datetime.datetime.now()).days <= DAYS_LIMIT:
             send_message(w.expiration_date)    
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
-=======
     except Exception as e:
         print("Unexpected error:", e)
->>>>>>> 47b491ed25e97a1570bed72554e5a34a6a076727
