@@ -53,6 +53,9 @@ for domain in DOMAINS:
     try:
         check_ssl_time_left(domain)
         w = whois.whois(domain)           
-        print("Expiration date for", domain,": ",  w.expiration_date)
+        expdays = 'Expiration date for {} has {}'.format(domain, days_left_to_format_string(w.expiration_date-datetime.datetime.now()))
+        print(expdays)
+        if (w.expiration_date-datetime.datetime.now()).days <= DAYS_LIMIT:
+            send_message(w.expiration_date)    
     except:
         print("Unexpected error:", sys.exc_info()[0])
