@@ -1,10 +1,13 @@
 # Domains list
 DOMAINS = [
-    # 'ifmo.su'
+    # 'codex.so'
 ]
 
-# Notifications link from https://t.me/codex_bot
-CODEXBOT_NOTIFICATIONS = ''
+# Telegram bot API Token
+APITOKEN = ''
+
+# Telegram Chat ID (obtain via https://api.telegram.org/bot<TOKEN>/getUpdates)
+CHATID = 0
 
 # Notify when cert expires in this period of time
 DAYS_LIMIT = 31
