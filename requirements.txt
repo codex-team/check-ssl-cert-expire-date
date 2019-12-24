@@ -1,1 +1,3 @@
-pywhois
+python-whois
+-from pywhois import whois
++import whois

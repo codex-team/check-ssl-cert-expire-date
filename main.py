@@ -6,7 +6,7 @@ import datetime
 import requests
 import sys
 from pywhois import whois
-from config import DOMAINS, DAYS_LIMIT, APITOKEN, CHATID
+from config import DOMAINS, DAYS_LIMIT_CERT, DAYS_LIMIT_DOMAIN, APITOKEN, CHATID
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
 MESSAGE_CERTIFICATE_EXPIRED = "⚠️ SSL expired on {}"
