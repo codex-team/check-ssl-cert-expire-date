@@ -1,6 +1,6 @@
 # Domains list
 DOMAINS = [
-     'codex.so'
+    # 'codex.so'
 ]
 
 # Telegram bot API Token
