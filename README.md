@@ -1,9 +1,6 @@
 # SSL certs expire date checker
 Python-script for checking certs life time for domains.
 
-## Requirements
-- requests
-
 ## Install
 
 1. Clone this rep
