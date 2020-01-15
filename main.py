@@ -5,7 +5,7 @@ import ssl
 import datetime
 import requests
 import sys
-from pywhois import whois
+import whois
 from config import DOMAINS, DAYS_LIMIT_CERT, DAYS_LIMIT_DOMAIN, APITOKEN, CHATID
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
@@ -88,7 +88,6 @@ def days_left_to_format_string(timedelta):
 if not APITOKEN:
     print('No APITOKEN was found in config file.')
     exit()
-
 
 for domain in DOMAINS:
     try:
