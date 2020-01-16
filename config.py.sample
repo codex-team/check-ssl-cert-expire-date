@@ -10,4 +10,5 @@ APITOKEN = ''
 CHATID = 0
 
 # Notify when cert expires in this period of time
-DAYS_LIMIT = 31
+DAYS_LIMIT_CERT = 31
+DAYS_LIMIT_DOMAIN = 31 

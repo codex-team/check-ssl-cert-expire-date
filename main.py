@@ -4,8 +4,9 @@ import socket
 import ssl
 import datetime
 import requests
-from config import DOMAINS, DAYS_LIMIT, APITOKEN, CHATID
-
+import sys
+import whois
+from config import DOMAINS, DAYS_LIMIT_CERT, DAYS_LIMIT_DOMAIN, APITOKEN, CHATID
 
 date_fmt = r'%b %d %H:%M:%S %Y %Z'
 MESSAGE_CERTIFICATE_EXPIRED = "⚠️ SSL expired on {}"
@@ -69,7 +70,7 @@ def check_ssl_time_left(domain):
     if cert_expire_at is not None:
         time_left = cert_expire_at - datetime.datetime.now()
         message = 'SSL cert for {} has {}'.format(domain, days_left_to_format_string(time_left))
-        if time_left.days <= DAYS_LIMIT:
+        if time_left.days <= DAYS_LIMIT_CERT:
             message = '{}'.format(message)
             send_message(message)
         print(message)
@@ -88,9 +89,13 @@ if not APITOKEN:
     print('No APITOKEN was found in config file.')
     exit()
 
-
 for domain in DOMAINS:
     try:
         check_ssl_time_left(domain)
+        w = whois.whois(domain)           
+        expdays = 'Expiration date for {} has {}'.format(domain, days_left_to_format_string(w.expiration_date-datetime.datetime.now()))
+        print(expdays)
+        if (w.expiration_date-datetime.datetime.now()).days <= DAYS_LIMIT_DOMAIN:
+            send_message(w.expiration_date)    
     except Exception as e:
         print("Unexpected error:", e)
